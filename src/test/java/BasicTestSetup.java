@@ -29,7 +29,6 @@ public class BasicTestSetup {
 
         capabilities.setCapability("testobject_app_id", "1");
 
-        /*  */
         capabilities.setCapability("testobject_device", System.getenv("testobject-device-id")); // device id through env variable
         //capabilities.setCapability("testobject_device", "Motorola_Moto_E_2nd_gen_real"); // device id hardcoded
 
