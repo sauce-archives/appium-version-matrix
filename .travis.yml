@@ -1,4 +1,6 @@
 language: java
+script:
+  - ./gradlew test -i
 env:
   global:
   - TESTOBJECT_DEVICE_ID: Motorola_Moto_E_2nd_gen_real
