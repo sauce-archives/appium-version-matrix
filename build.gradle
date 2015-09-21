@@ -13,6 +13,7 @@ test {
     testLogging {
         showExceptions = true
         showStackTraces = true
+        showStandardStreams = true
     }
 }
 
