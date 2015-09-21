@@ -9,6 +9,12 @@ repositories {
     mavenCentral()
 }
 
+test {
+    testLogging {
+        showExceptions: true
+    }
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
