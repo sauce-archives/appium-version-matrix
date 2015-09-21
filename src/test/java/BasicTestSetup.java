@@ -36,6 +36,8 @@ public class BasicTestSetup {
         * it with the correct endpoint and the requested capabilities. */
         driver = new AndroidDriver(new URL("https://app.testobject.com:443/api/appium/wd/hub"), capabilities);
 
+        System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
+        System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
     }
 
     /* We disable the driver after EACH test has been executed. */
