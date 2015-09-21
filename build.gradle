@@ -15,6 +15,7 @@ test {
         showExceptions = true
         showStackTraces = true
         showStandardStreams = true
+        exceptionFormat = 'full'
     }
 }
 
