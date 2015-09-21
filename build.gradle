@@ -11,6 +11,7 @@ repositories {
 
 test {
     testLogging {
+        showCauses = true
         showExceptions = true
         showStackTraces = true
         showStandardStreams = true
