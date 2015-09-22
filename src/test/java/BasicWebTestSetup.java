@@ -19,7 +19,7 @@ public class BasicWebTestSetup {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability("testobject_app_id", 1);
-        capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY"));
+        capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY_WEB"));
         capabilities.setCapability("testobject_device", System.getenv("TESTOBJECT_DEVICE_ID"));
 
         driver = new AndroidDriver(new URL("https://app.testobject.com:443/api/appium/wd/hub"), capabilities);
