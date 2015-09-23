@@ -54,9 +54,9 @@ public class MatrixTestSetup {
 
         /* These are the capabilities we must provide to run our test on TestObject. */
         capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
-        //capabilities.setCapability("testobject_api_key", "YOUR_API_KEY")); // API key hardcoded
+        //capabilities.setCapability("testobject_api_key", "TESTOBJECT_API_KEY"); // API key hardcoded
 
-        capabilities.setCapability("testobject_app_id", "1");
+        capabilities.setCapability("testobject_app_id", "2");
         System.out.println(appiumVersion);
         capabilities.setCapability("testobject_appium_version", appiumVersion);
 
