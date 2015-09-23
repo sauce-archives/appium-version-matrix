@@ -4,19 +4,48 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
-public class BasicTestSetup {
+@RunWith(Parameterized.class)
+public class MatrixTestSetup {
 
     private AppiumDriver driver;
 
     private final static String EXPECTED_RESULT_FOUR = "4";
     private final static String EXPECTED_RESULT_ERROR = "Error";
+
+    private String appiumVersion;
+
+    public MatrixTestSetup(String appiumVersion) {
+        this.appiumVersion = appiumVersion;
+    }
+
+    @Parameterized.Parameters
+    public static List<String[]> appiumVersions() {
+        return Arrays.asList(new String[][] {
+                { "1.2.3" },
+                { "1.3.4" },
+                { "1.3.5" },
+                { "1.3.6" },
+                { "1.3.7" },
+                { "1.4.0" },
+                { "1.4.1" },
+                { "1.4.10" },
+                { "1.4.7" },
+                { "1.4.8" }
+        });
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -28,6 +57,8 @@ public class BasicTestSetup {
         //capabilities.setCapability("testobject_api_key", "YOUR_API_KEY")); // API key hardcoded
 
         capabilities.setCapability("testobject_app_id", "1");
+        System.out.println(appiumVersion);
+        capabilities.setCapability("testobject_appium_version", appiumVersion);
 
         capabilities.setCapability("testobject_device", System.getenv("TESTOBJECT_DEVICE_ID")); // device id through env variable
         //capabilities.setCapability("testobject_device", "Motorola_Moto_E_2nd_gen_real"); // device id hardcoded

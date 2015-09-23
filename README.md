@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/testobject/appium-test-setup-basic.svg?branch=master)](https://travis-ci.org/testobject/appium-test-setup-basic)
+[![Build Status](https://travis-ci.org/testobject/appium-version-matrix.svg?branch=master)](https://travis-ci.org/testobject/appium-version-matrix)
 
-# appium-test-setup-basic
-The most basic test setup to run Appium tests on the TestObject platform, exemplified through two basic tests on the [Calculator app](https://github.com/aluedeke/calculator) by Andreas Lüdeke.
+# appium-version-matrix
+Runs basic tests on every Appium version.
 
 # setting up travis ci
 1. add a .travis.yml to your project  
