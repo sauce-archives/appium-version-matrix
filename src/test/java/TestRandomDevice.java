@@ -67,9 +67,9 @@ public class TestRandomDevice {
     public void twoPlusTwoOperation() {
 
         /* Get the elements. */
-        MobileElement buttonTwo = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/digit2")));
-        MobileElement buttonPlus = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/plus")));
-        MobileElement buttonEquals = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/equal")));
+        MobileElement buttonTwo = (MobileElement)(driver.findElement(By.id("digit2")));
+        MobileElement buttonPlus = (MobileElement)(driver.findElement(By.id("plus")));
+        MobileElement buttonEquals = (MobileElement)(driver.findElement(By.id("equal")));
         MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//android.widget.EditText[1]")));
 
         /* Add two and two. */
@@ -89,7 +89,7 @@ public class TestRandomDevice {
     public void factorialMinusOperation() {
 
         /* In the main panel... */
-        MobileElement menuButton = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/overflow_menu")));
+        MobileElement menuButton = (MobileElement)(driver.findElement(By.id("overflow_menu")));
         menuButton.click();
 
         MobileElement advancedPanelButton = (MobileElement)(new WebDriverWait(driver, 60))
@@ -98,15 +98,15 @@ public class TestRandomDevice {
 
         /* In the advanced panel... */
         MobileElement factorialButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("net.ludeke.calculator:id/factorial")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("factorial")));
         factorialButton.click();
 
         /* In the main panel again. */
         MobileElement minusButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("net.ludeke.calculator:id/minus")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("minus")));
         minusButton.click();
 
-        MobileElement equalsButton = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/equal")));
+        MobileElement equalsButton = (MobileElement)(driver.findElement(By.id("equal")));
         equalsButton.click();
 
         MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//android.widget.EditText[1]")));
