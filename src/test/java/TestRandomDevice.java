@@ -31,7 +31,6 @@ public class TestRandomDevice {
 
         /* These are the capabilities we must provide to run our test on TestObject. */
         capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
-        System.out.println(System.getenv("TESTOBJECT_API_KEY"));
 
         String appId = System.getenv("TESTOBJECT_APP_ID") != null ? System.getenv("TESTOBJECT_APP_ID") : "1";
         capabilities.setCapability("testobject_app_id", appId);
