@@ -1,11 +1,7 @@
 [![Build Status](https://travis-ci.org/testobject/appium-version-matrix.svg?branch=master)](https://travis-ci.org/testobject/appium-version-matrix)
 
-# appium-version-matrix
-Runs basic tests on every Appium version. Modify the array in MatrixTestSetup:appiumVersions to add or remove versions.
+# appium-test-random-device
+Selects a random available Android device from TestObject, then runs a basic test on it with the Calculator 2.0 app.
 
-# setting up travis ci
-1. add a .travis.yml to your project  
-2. add your testobject_api_key as encrypted enviroment variables  
-```
-travis encrypt TESTOBJECT_API_KEY=YOUR_API_KEY --add env.global
-```
+# Building with Travis
+The `.travis.yml` file included refers to multiple Appium versions. In a Travis build, the tests will be run on every Appium version specified here.

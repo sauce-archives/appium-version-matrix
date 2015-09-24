@@ -4,64 +4,46 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testobject.api.TestObjectClient;
+import org.testobject.api.TestObjectRemoteClient;
+import org.testobject.rest.api.DeviceDescriptor;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
-@RunWith(Parameterized.class)
-public class MatrixTestSetup {
+public class TestRandomDevice {
 
     private AppiumDriver driver;
 
     private final static String EXPECTED_RESULT_FOUR = "4";
     private final static String EXPECTED_RESULT_ERROR = "Error";
 
-    private String appiumVersion;
-
-    public MatrixTestSetup(String appiumVersion) {
-        this.appiumVersion = appiumVersion;
-    }
-
-    @Parameterized.Parameters
-    public static List<String[]> appiumVersions() {
-        return Arrays.asList(new String[][] {
-                { "1.2.3" },
-                { "1.3.4" },
-                { "1.3.5" },
-                { "1.3.6" },
-                { "1.3.7" },
-                { "1.4.0" },
-                { "1.4.1" },
-                { "1.4.10" },
-                { "1.4.7" },
-                { "1.4.8" }
-        });
-    }
-
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception, NoDeviceAvailableException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         /* These are the capabilities we must provide to run our test on TestObject. */
         capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
-        //capabilities.setCapability("testobject_api_key", "TESTOBJECT_API_KEY"); // API key hardcoded
+        System.out.println(System.getenv("TESTOBJECT_API_KEY"));
 
-        capabilities.setCapability("testobject_app_id", "2");
-        System.out.println(appiumVersion);
+        String appId = System.getenv("TESTOBJECT_APP_ID") != null ? System.getenv("TESTOBJECT_APP_ID") : "1";
+        capabilities.setCapability("testobject_app_id", appId);
+
+        // Appium version is pulled from environment variables, so we can test multiple using Travis
+        String appiumVersion = System.getenv("TESTOBJECT_APPIUM_VERSION") != null ? System.getenv("TESTOBJECT_APPIUM_VERSION") : "1.4.8";
         capabilities.setCapability("testobject_appium_version", appiumVersion);
 
-        capabilities.setCapability("testobject_device", System.getenv("TESTOBJECT_DEVICE_ID")); // device id through env variable
-        //capabilities.setCapability("testobject_device", "Motorola_Moto_E_2nd_gen_real"); // device id hardcoded
+        // Get a random available device to run our test on
+        String device = getRandomDevice();
+        capabilities.setCapability("testobject_device", device);
+
 
         /* The driver will take care of establishing the connection, so we must provide
         * it with the correct endpoint and the requested capabilities. */
@@ -74,7 +56,10 @@ public class MatrixTestSetup {
     /* We disable the driver after EACH test has been executed. */
     @After
     public void tearDown(){
-        driver.quit();
+        if (driver != null) {
+            System.out.println(driver.getPageSource());
+            driver.quit();
+        }
     }
 
 
@@ -131,4 +116,24 @@ public class MatrixTestSetup {
 
     }
 
+    private String getRandomDevice() throws NoDeviceAvailableException {
+        TestObjectClient client = new TestObjectRemoteClient("https://app.testobject.com/api/rest", null);
+        List<DeviceDescriptor> devices = client.listDevices()
+                .stream()
+                .filter(device -> device.isAvailable)
+                .filter(device -> device.os == DeviceDescriptor.OS.ANDROID)
+                .collect(Collectors.toList());
+        if (devices.size() == 0) {
+            throw new NoDeviceAvailableException();
+        } else {
+            Random random = new Random();
+            int index = random.nextInt(devices.size());
+            DeviceDescriptor device = devices.get(index);
+            return device.id;
+        }
+
+    }
+
+    private class NoDeviceAvailableException extends Throwable {
+    }
 }
