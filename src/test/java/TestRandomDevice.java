@@ -1,6 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,8 @@ public class TestRandomDevice {
     public void setUp() throws Exception, NoDeviceAvailableException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
+
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "selendroid");
 
         /* These are the capabilities we must provide to run our test on TestObject. */
         capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
