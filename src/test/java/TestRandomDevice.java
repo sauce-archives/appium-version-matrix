@@ -30,7 +30,7 @@ public class TestRandomDevice {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "selendroid");
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Selendroid");
 
         /* These are the capabilities we must provide to run our test on TestObject. */
         capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
@@ -69,17 +69,18 @@ public class TestRandomDevice {
     @Test
     public void twoPlusTwoOperation() {
 
-        /* Get the elements. */
         MobileElement buttonTwo = (MobileElement)(driver.findElement(By.id("digit2")));
-        MobileElement buttonPlus = (MobileElement)(driver.findElement(By.id("plus")));
-        MobileElement buttonEquals = (MobileElement)(driver.findElement(By.id("equal")));
-        MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//android.widget.EditText[1]")));
+        buttonTwo.click();
 
-        /* Add two and two. */
-        buttonTwo.click();
+        MobileElement buttonPlus = (MobileElement)(driver.findElement(By.id("plus")));
         buttonPlus.click();
+
         buttonTwo.click();
+
+        MobileElement buttonEquals = (MobileElement)(driver.findElement(By.id("equal")));
         buttonEquals.click();
+
+        MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//android.widget.EditText[1]")));
 
         /* Check if within given time the correct result appears in the designated field. */
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.textToBePresentInElement(resultField, EXPECTED_RESULT_FOUR));
@@ -92,7 +93,7 @@ public class TestRandomDevice {
     public void factorialMinusOperation() {
 
         /* In the main panel... */
-        MobileElement menuButton = (MobileElement)(driver.findElement(By.id("overflow_menu")));
+        MobileElement menuButton = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/overflow_menu")));
         menuButton.click();
 
         MobileElement advancedPanelButton = (MobileElement)(new WebDriverWait(driver, 60))
@@ -101,15 +102,15 @@ public class TestRandomDevice {
 
         /* In the advanced panel... */
         MobileElement factorialButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("factorial")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("net.ludeke.calculator:id/factorial")));
         factorialButton.click();
 
         /* In the main panel again. */
         MobileElement minusButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("minus")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("net.ludeke.calculator:id/minus")));
         minusButton.click();
 
-        MobileElement equalsButton = (MobileElement)(driver.findElement(By.id("equal")));
+        MobileElement equalsButton = (MobileElement)(driver.findElement(By.id("net.ludeke.calculator:id/equal")));
         equalsButton.click();
 
         MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//android.widget.EditText[1]")));
