@@ -30,6 +30,7 @@ public class TestRandomDevice {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
+        capabilities.setCapability("noSign", "true");
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
 
         /* These are the capabilities we must provide to run our test on TestObject. */
