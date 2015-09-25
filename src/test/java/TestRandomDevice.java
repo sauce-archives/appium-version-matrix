@@ -30,7 +30,7 @@ public class TestRandomDevice {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Selendroid");
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
 
         /* These are the capabilities we must provide to run our test on TestObject. */
         capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
@@ -46,6 +46,7 @@ public class TestRandomDevice {
         String device = getRandomDevice();
         capabilities.setCapability("testobject_device", device);
 
+        capabilities.setCapability("testobject_test_name", "Appium Version Matrix with Random Device");
 
         /* The driver will take care of establishing the connection, so we must provide
         * it with the correct endpoint and the requested capabilities. */
@@ -69,53 +70,21 @@ public class TestRandomDevice {
     @Test
     public void twoPlusTwoOperation() {
 
-        MobileElement buttonTwo = (MobileElement)(driver.findElement(By.id("digit2")));
+        MobileElement buttonTwo = (MobileElement)(driver.findElementById("digit2"));
         buttonTwo.click();
 
-        MobileElement buttonPlus = (MobileElement)(driver.findElement(By.id("plus")));
+        MobileElement buttonPlus = (MobileElement)(driver.findElementById("plus"));
         buttonPlus.click();
 
         buttonTwo.click();
 
-        MobileElement buttonEquals = (MobileElement)(driver.findElement(By.id("equal")));
+        MobileElement buttonEquals = (MobileElement)(driver.findElementById("equal"));
         buttonEquals.click();
 
-        MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//CalculatorEditText")));
+        MobileElement resultField = (MobileElement)(driver.findElementByClassName("android.widget.EditText"));
 
         /* Check if within given time the correct result appears in the designated field. */
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.textToBePresentInElement(resultField, EXPECTED_RESULT_FOUR));
-
-    }
-
-    /* An invalid operation, it navigates to the advanced panel, selects factorial, then minus,
-     * then the equal button. The expected result is an error message in the result field. */
-    @Test
-    public void factorialMinusOperation() {
-
-        /* In the main panel... */
-        MobileElement menuButton = (MobileElement)(driver.findElement(By.id("overflow_menu")));
-        menuButton.click();
-
-        MobileElement advancedPanelButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.name("Advanced panel")));
-        advancedPanelButton.click();
-
-        /* In the advanced panel... */
-        MobileElement factorialButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("factorial")));
-        factorialButton.click();
-
-        /* In the main panel again. */
-        MobileElement minusButton = (MobileElement)(new WebDriverWait(driver, 60))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("minus")));
-        minusButton.click();
-
-        MobileElement equalsButton = (MobileElement)(driver.findElement(By.id("equal")));
-        equalsButton.click();
-
-        MobileElement resultField = (MobileElement)(driver.findElement(By.xpath("//CalculatorEditText")));
-
-        (new WebDriverWait(driver, 30)).until(ExpectedConditions.textToBePresentInElement(resultField, EXPECTED_RESULT_ERROR));
 
     }
 
@@ -125,6 +94,7 @@ public class TestRandomDevice {
                 .stream()
                 .filter(device -> device.isAvailable)
                 .filter(device -> device.os == DeviceDescriptor.OS.ANDROID)
+                .filter(device -> isUIAutomatorCapable(device))
                 .collect(Collectors.toList());
         if (devices.size() == 0) {
             throw new NoDeviceAvailableException();
@@ -135,6 +105,19 @@ public class TestRandomDevice {
             return device.id;
         }
 
+    }
+
+    private boolean isUIAutomatorCapable(DeviceDescriptor device) {
+        String version = device.osVersion;
+        int major = Integer.parseInt(version.substring(0, 1));
+        if (major < 4) {
+            return false;
+        }
+        int minor = Integer.parseInt(version.substring(2, 3));
+        if (minor < 3) {
+            return false;
+        }
+        return true;
     }
 
     private class NoDeviceAvailableException extends Throwable {
