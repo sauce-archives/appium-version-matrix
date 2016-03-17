@@ -55,13 +55,13 @@ public class TestRandomDevice {
 
         System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
         System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
+        System.out.println("Executing test on: " + device);
     }
 
     /* We disable the driver after EACH test has been executed. */
     @After
     public void tearDown(){
         if (driver != null) {
-            System.out.println(driver.getPageSource());
             driver.quit();
         }
     }
