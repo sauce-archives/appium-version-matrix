@@ -49,7 +49,7 @@ public class TestRandomDevice {
 
         capabilities.setCapability("testobject_test_name", "Appium Version Matrix with Random Device");
 
-        String appiumEndpoint = System.getenv("TESTOBJECT_APPIUM_ENDPOINT") != null ? System.getenv("TESTOBJECT_APPIUM_ENDPOINT") : "https://app.testobject.com:443/api/appium/wd/hub"
+        String appiumEndpoint = System.getenv("TESTOBJECT_APPIUM_ENDPOINT") != null ? System.getenv("TESTOBJECT_APPIUM_ENDPOINT") : "https://app.testobject.com:443/api/appium/wd/hub";
         /* The driver will take care of establishing the connection, so we must provide
         * it with the correct endpoint and the requested capabilities. */
         driver = new AndroidDriver(new URL(appiumEndpoint), capabilities);
