@@ -45,6 +45,7 @@ public class TestRandomDevice {
 
         // Get a random available device to run our test on
         String device = getRandomDevice();
+        System.out.println("Executing test on: " + device);
         capabilities.setCapability("testobject_device", device);
 
         capabilities.setCapability("testobject_test_name", "Appium Version Matrix with Random Device");
@@ -56,7 +57,6 @@ public class TestRandomDevice {
 
         System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
         System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
-        System.out.println("Executing test on: " + device);
     }
 
     /* We disable the driver after EACH test has been executed. */
