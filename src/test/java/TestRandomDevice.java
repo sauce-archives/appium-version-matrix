@@ -5,7 +5,6 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,6 +15,7 @@ import org.testobject.rest.api.DeviceDescriptor;
 import java.net.URL;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TestRandomDevice {
@@ -47,6 +47,11 @@ public class TestRandomDevice {
         String device = getRandomDevice();
         System.out.println("Executing test on: " + device);
         capabilities.setCapability("testobject_device", device);
+
+        // We generate a random UUID for later lookup in logs for debugging
+        String testUUID = UUID.randomUUID().toString();
+        System.out.println("TestUUID: " + testUUID);
+        capabilities.setCapability("testobject_testuuid", testUUID);
 
         capabilities.setCapability("testobject_test_name", "Appium Version Matrix with Random Device");
 
