@@ -5,6 +5,9 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,17 +16,26 @@ import org.testobject.api.TestObjectRemoteClient;
 import org.testobject.rest.api.DeviceDescriptor;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@RunWith(Parameterized.class)
 public class TestRandomDevice {
 
     private AppiumDriver driver;
 
     private final static String EXPECTED_RESULT_FOUR = "4";
     private final static String EXPECTED_RESULT_ERROR = "Error";
+    private String appiumVersion;
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] { {"1.4.10"}, {"1.4.16"}, {"1.5.0"}, {"1.5.1"}, {"1.5.2"} });
+    }
+
+    public TestRandomDevice(String appiumVersion) {
+        this.appiumVersion = appiumVersion;
+    }
 
     @Before
     public void setUp() throws Exception, NoDeviceAvailableException {
@@ -41,8 +53,7 @@ public class TestRandomDevice {
         String appId = System.getenv("TESTOBJECT_APP_ID") != null ? System.getenv("TESTOBJECT_APP_ID") : "1";
         capabilities.setCapability("testobject_app_id", appId);
 
-        // Appium version is pulled from environment variables, so we can test multiple using Travis
-        String appiumVersion = System.getenv("TESTOBJECT_APPIUM_VERSION") != null ? System.getenv("TESTOBJECT_APPIUM_VERSION") : "1.4.8";
+        System.out.println("Appium Version: " + appiumVersion);
         capabilities.setCapability("testobject_appium_version", appiumVersion);
 
         // Get a random available device to run our test on
