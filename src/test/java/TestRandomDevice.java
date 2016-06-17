@@ -34,7 +34,9 @@ public class TestRandomDevice {
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
 
         /* These are the capabilities we must provide to run our test on TestObject. */
-        capabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY")); // API key through env variable
+        String apiKey = System.getenv("TESTOBJECT_API_KEY");
+        System.out.println("TESTOBJECT_API_KEY: " + apiKey);
+        capabilities.setCapability("testobject_api_key", apiKey); // API key through env variable
 
         String appId = System.getenv("TESTOBJECT_APP_ID") != null ? System.getenv("TESTOBJECT_APP_ID") : "1";
         capabilities.setCapability("testobject_app_id", appId);
