@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testobject.api.TestObjectClient;
 import org.testobject.api.TestObjectRemoteClient;
-import org.testobject.rest.api.DeviceDescriptor;
+import org.testobject.rest.api.model.DeviceDescriptor;
 
 import java.net.URL;
 import java.util.*;
