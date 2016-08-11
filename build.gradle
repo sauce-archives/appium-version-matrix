@@ -27,5 +27,5 @@ dependencies {
 
     compile 'io.appium:java-client:3.1.0'
     compile 'org.seleniumhq.selenium:selenium-server:2.25.0'
-    compile 'org.testobject:testobject-java-api:0.0.10'
+    compile 'org.testobject:testobject-java-api:' + (System.getenv("TESTOBJECT_APPIUM_JAVA_API_VERSION") ?: '0.0.19')
 }
