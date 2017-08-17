@@ -30,7 +30,7 @@ public class TestRandomDevice {
 
     @Parameters
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] { {"1.4.10"}, {"1.4.16"}, {"1.5.0"}, {"1.5.1"}, {"1.5.2"} });
+        return Arrays.asList(new Object[][] { {"1.4.8"}, {"1.6.0-updated-chromedriver"}, {"1.6.4"}, {"1.6.5"} });
     }
 
     public TestRandomDevice(String appiumVersion) {
